@@ -7,11 +7,13 @@ object Dependencies {
     "spray nightlies repo"  at "http://nightlies.spray.io"
   )
 
-  val sprayCan        = "io.spray"                  %   "spray-can"             % "1.1-20130509"
-  val sprayRouting    = "io.spray"                  %   "spray-routing"         % "1.1-20130509"
-  val sprayTestkit    = "io.spray"                  %   "spray-testkit"         % "1.1-20130509"
-  val sprayClient     = "io.spray"                  %   "spray-client"          % "1.1-20130509"
-  val sprayServlet    = "io.spray"                  %   "spray-servlet"         % "1.1-20130509"
+  val sprayVersion = "1.1-M8"
+
+  val sprayCan        = "io.spray"                  %   "spray-can"             % sprayVersion
+  val sprayRouting    = "io.spray"                  %   "spray-routing"         % sprayVersion
+  val sprayTestkit    = "io.spray"                  %   "spray-testkit"         % sprayVersion
+  val sprayClient     = "io.spray"                  %   "spray-client"          % sprayVersion
+  val sprayServlet    = "io.spray"                  %   "spray-servlet"         % sprayVersion
   val sprayJson       = "io.spray"                  %%  "spray-json"            % "1.2.3"
   val scalaReflect    = "org.scala-lang"            %   "scala-reflect"         % "2.10.1"
   val akkaActor       = "com.typesafe.akka"         %%  "akka-actor"            % "2.1.2"
