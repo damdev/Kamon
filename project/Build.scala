@@ -13,6 +13,10 @@ object Build extends Build {
     .settings(revolverSettings: _*)
     .settings(aspectJSettings: _*)
     .settings(Twirl.settings: _*)
+    .settings(unmanagedResourceDirectories in Compile <++= baseDirectory { base =>
+    	Seq( base / "src/main/webapp" )
+  	}
+    )
     //.settings(newrelicSettings: _*)
     .settings(
       libraryDependencies ++=

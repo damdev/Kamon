@@ -29,9 +29,5 @@ object Settings {
   lazy val revolverSettings = Revolver.settings ++ seq(
     reJRebelJar := "~/.jrebel/jrebel.jar"
   )
-  
-  unmanagedResourceDirectories in Compile <++= baseDirectory { base =>
-    Seq( base / "src/main/webapp" )
-  }
 }
 

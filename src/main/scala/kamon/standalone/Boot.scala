@@ -20,3 +20,5 @@ trait WebApp {
 object Boot extends App with WebApp {
 
 }
+
+
