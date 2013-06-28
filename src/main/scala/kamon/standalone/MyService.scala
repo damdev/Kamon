@@ -65,7 +65,7 @@ trait TwirlPages extends HttpService {
       } ~
       path("index2") {
         respondWithMediaType(`text/html`) {
-          complete(html.index2("Spraying some Bootstrap", "Hello Twirl served by Spray").toString)
+          complete(html.index2("KAMON", "Kamon").toString)
         }
       }
     }
