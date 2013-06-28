@@ -11,7 +11,6 @@ case class TraceableMessage(traceContext: TraceContext, message: Any)
 
 @Aspect
 class ActorRefTellInstrumentation {
-  println("Created ActorAspect")
 
   @Pointcut("execution(* akka.actor.ScalaActorRef+.$bang(..)) && !within(akka.pattern.PromiseActorRef) && args(message, sender)")
   def sendingMessageToActorRef(message: Any, sender: ActorRef) = {}

@@ -25,13 +25,13 @@ class MyServiceActor extends Actor with MyService {
 }
 
 // this trait defines our service behavior independently from the service actor
-trait MyService extends HttpService with StaticResources with TwirlPages with InlineHtml {
+trait MyService extends HttpService with StaticResources with TwirlPages {
 
-  def showPath(req: HttpRequest) = LogEntry("Method = %s, Path = %s" format(req.method, req.uri), Logging.InfoLevel)
+  def showPath(req: HttpRequest) = LogEntry(s"Method = ${req.method}, Path = ${req.uri}", Logging.InfoLevel)
 
   val myRoute =
     logRequest(showPath _) {
-      staticResources ~ inlineHtml ~ twirlPages
+      staticResources ~ twirlPages
     }
 }
 
@@ -45,10 +45,10 @@ trait StaticResources extends HttpService {
         complete(StatusCodes.NotFound)
       } ~
       path(Rest) { path =>
-        getFromResource("bootstrap/%s" format path)
+        getFromResource(s"bootstrap/$path")
       } ~
-      path("file") {
-        getFromResource("application.conf")
+      path(Rest) { path =>
+        getFromResource(s"highcharts/$path")
       }
     }
 }
@@ -60,43 +60,9 @@ trait TwirlPages extends HttpService {
     get {
       path("index") {
         respondWithMediaType(`text/html`) {
-          complete(html.index().toString)
-        }
-      } ~
-      path("index2") {
-        respondWithMediaType(`text/html`) {
-          complete(html.index2("KAMON", "Kamon").toString)
+          complete(html.index("KAMON", "Kamon").toString)
         }
       }
     }
 }
 
-// Trait for serving a page with inline html
-trait InlineHtml extends HttpService {
-
-  val inlineHtml =
-    get {
-      path("") {
-        respondWithMediaType(`text/html`) {
-          // XML is marshalled to `text/xml` by default, so we simply override here
-          complete {
-            <html>
-              <body>
-                <h1>Say hello to
-                  <i>spray-routing</i>
-                  on
-                  <i>spray-can</i>
-                  !</h1>
-                <p>
-                  <h2>Some Twirl and static pages:</h2>
-                  <a href="/index">Simple index page using Twirl</a><br/>
-                  <a href="/index2">Another Twirl page using a Twitter Bootstrap template with dynamic data and using static css and js resources</a><br/>
-                  <a href="/file">Getting content from a static file</a><br/>
-                </p>
-              </body>
-            </html>
-          }
-        }
-      }
-    }
-}
